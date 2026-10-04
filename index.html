@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="FlavorQuest - Discover delicious recipes, save favorites and build your shopping list.">
+
+    <title>FlavorQuest — Discover Your Next Favorite Meal</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <button class="brand" id="homeBtn" type="button">
+                <span class="brand-icon">✦</span>
+                <span>
+                    <strong>FlavorQuest</strong>
+                    <small>Discover. Cook. Enjoy.</small>
+                </span>
+            </button>
+
+            <nav class="main-nav">
+                <button class="nav-btn active" data-view="home" type="button">
+                    Home
+                </button>
+
+                <button class="nav-btn" data-view="explore" type="button">
+                    Explore
+                </button>
+
+                <button class="nav-btn" data-view="favorites" type="button">
+                    Favorites
+                    <span class="nav-count" id="favoriteCount">0</span>
+                </button>
+
+                <button class="nav-btn" data-view="recent" type="button">
+                    Recent
+                </button>
+            </nav>
+
+            <div class="header-actions">
+
+                <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">
+                    ☾
+                </button>
+
+                <button class="shopping-btn" id="shoppingBtn" type="button">
+                    🛒
+                    <span>Shopping</span>
+                    <b id="shoppingCount">0</b>
+                </button>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+                    ☰
+                </button>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ================= MOBILE NAV ================= -->
+
+    <div class="mobile-nav" id="mobileNav">
+        <button data-view="home" type="button">Home</button>
+        <button data-view="explore" type="button">Explore</button>
+        <button data-view="favorites" type="button">Favorites</button>
+        <button data-view="recent" type="button">Recently Viewed</button>
+    </div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-glow hero-glow-one"></div>
+            <div class="hero-glow hero-glow-two"></div>
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+                    <span>✦</span>
+                    Your personal recipe explorer
+                </div>
+
+                <h1>
+                    Find something
+                    <span>delicious.</span>
+                </h1>
+
+                <p>
+                    Search recipes, discover new flavors, save your favorites,
+                    and turn ingredients into your next great meal.
+                </p>
+
+                <div class="search-wrapper">
+
+                    <div class="search-box">
+
+                        <span class="search-icon">⌕</span>
+
+                        <input
+                            id="searchInput"
+                            type="text"
+                            autocomplete="off"
+                            placeholder="Search recipes, ingredients or cuisines..."
+                        >
+
+                        <button
+                            id="clearSearchBtn"
+                            class="clear-search hidden"
+                            type="button"
+                            aria-label="Clear search"
+                        >
+                            ×
+                        </button>
+
+                        <button
+                            id="searchBtn"
+                            class="search-btn"
+                            type="button"
+                        >
+                            Search
+                        </button>
+
+                    </div>
+
+                    <div class="suggestions" id="suggestions"></div>
+
+                </div>
+
+                <div class="hero-shortcuts">
+                    <span>Try:</span>
+
+                    <button class="search-suggestion-btn" data-search="pasta" type="button">
+                        pasta
+                    </button>
+
+                    <button class="search-suggestion-btn" data-search="chicken" type="button">
+                        chicken
+                    </button>
+
+                    <button class="search-suggestion-btn" data-search="dessert" type="button">
+                        dessert
+                    </button>
+
+                    <button class="search-suggestion-btn" data-search="vegetarian" type="button">
+                        vegetarian
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK FILTERS ================= -->
+
+        <section class="content-section filters-section">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">DISCOVER</span>
+                    <h2>Explore recipes</h2>
+                </div>
+
+                <div class="results-tools">
+
+                    <label class="sort-label">
+                        Sort:
+                        <select id="sortSelect">
+                            <option value="popular">Most Popular</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="quickest">Quickest</option>
+                            <option value="name">Name A-Z</option>
+                        </select>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="filter-row" id="filterRow">
+
+                <button class="filter-btn active" data-filter="all" type="button">
+                    ✦ All
+                </button>
+
+                <button class="filter-btn" data-filter="quick" type="button">
+                    ⚡ Quick
+                </button>
+
+                <button class="filter-btn" data-filter="vegetarian" type="button">
+                    🥗 Vegetarian
+                </button>
+
+                <button class="filter-btn" data-filter="high-protein" type="button">
+                    💪 High Protein
+                </button>
+
+                <button class="filter-btn" data-filter="dessert" type="button">
+                    🍰 Desserts
+                </button>
+
+                <button class="filter-btn" data-filter="breakfast" type="button">
+                    🍳 Breakfast
+                </button>
+
+                <button class="filter-btn" data-filter="under-30" type="button">
+                    ⏱ Under 30 min
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STATS ================= -->
+
+        <section class="stats-section content-section">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span class="stat-icon">🍽️</span>
+                    <div>
+                        <strong id="recipeStat">24</strong>
+                        <span>Recipes</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-icon">❤️</span>
+                    <div>
+                        <strong id="favoriteStat">0</strong>
+                        <span>Favorites</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-icon">⚡</span>
+                    <div>
+                        <strong id="quickStat">0</strong>
+                        <span>Quick recipes</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-icon">⭐</span>
+                    <div>
+                        <strong>4.8</strong>
+                        <span>Average rating</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RECIPE SECTION ================= -->
+
+        <section class="content-section recipes-section">
+
+            <div class="results-header">
+
+                <div>
+                    <span class="eyebrow" id="resultsEyebrow">
+                        FEATURED
+                    </span>
+
+                    <h2 id="resultsTitle">
+                        Popular right now
+                    </h2>
+
+                    <p id="resultsDescription">
+                        Hand-picked recipes worth trying.
+                    </p>
+                </div>
+
+                <button class="random-btn" id="randomBtn" type="button">
+                    <span>🎲</span>
+                    Surprise me
+                </button>
+
+            </div>
+
+            <div class="recipe-grid" id="recipeGrid"></div>
+
+            <div class="empty-state hidden" id="emptyState">
+
+                <div class="empty-icon">🍽️</div>
+
+                <h3 id="emptyTitle">
+                    No recipes found
+                </h3>
+
+                <p id="emptyText">
+                    Try another search or filter.
+                </p>
+
+                <button id="resetBtn" class="primary-btn" type="button">
+                    Show all recipes
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SMART FEATURES ================= -->
+
+        <section class="smart-section">
+
+            <div class="smart-inner">
+
+                <div class="smart-copy">
+
+                    <span class="eyebrow">FLAVORQUEST SMART</span>
+
+                    <h2>
+                        Don't know what
+                        <span>to cook?</span>
+                    </h2>
+
+                    <p>
+                        Let FlavorQuest pick a recipe based on your mood.
+                        Choose a category or simply let us surprise you.
+                    </p>
+
+                    <button id="smartRandomBtn" class="primary-btn" type="button">
+                        ✨ Pick something for me
+                    </button>
+
+                </div>
+
+                <div class="smart-cards">
+
+                    <button class="smart-card" data-filter="quick" type="button">
+                        <span>⚡</span>
+                        <strong>I'm in a hurry</strong>
+                        <small>Quick recipes</small>
+                    </button>
+
+                    <button class="smart-card" data-filter="vegetarian" type="button">
+                        <span>🥗</span>
+                        <strong>Keep it fresh</strong>
+                        <small>Vegetarian recipes</small>
+                    </button>
+
+                    <button class="smart-card" data-filter="high-protein" type="button">
+                        <span>💪</span>
+                        <strong>Power meal</strong>
+                        <small>High-protein recipes</small>
+                    </button>
+
+                    <button class="smart-card" data-filter="dessert" type="button">
+                        <span>🍰</span>
+                        <strong>Something sweet</strong>
+                        <small>Dessert recipes</small>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= RECIPE MODAL ================= -->
+
+    <div class="modal-overlay hidden" id="recipeModal">
+
+        <div class="recipe-modal">
+
+            <button
+                class="modal-close"
+                id="closeRecipeModal"
+                type="button"
+                aria-label="Close recipe"
+            >
+                ×
+            </button>
+
+            <div class="modal-image-wrap">
+
+                <img id="modalImage" src="" alt="">
+
+                <div class="modal-image-fallback" id="modalImageFallback">
+                    🍽️
+                </div>
+
+                <div class="modal-category" id="modalCategory">
+                    Recipe
+                </div>
+
+            </div>
+
+            <div class="modal-content">
+
+                <div class="modal-title-row">
+
+                    <div>
+                        <div class="rating" id="modalRating">
+                            ⭐ 4.8
+                        </div>
+
+                        <h2 id="modalTitle">
+                            Recipe
+                        </h2>
+
+                        <p id="modalDescription"></p>
+                    </div>
+
+                    <button
+                        class="favorite-large"
+                        id="modalFavoriteBtn"
+                        type="button"
+                        aria-label="Favorite recipe"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+
+                <div class="recipe-meta">
+
+                    <div>
+                        <span>⏱</span>
+                        <strong id="modalTime">20 min</strong>
+                        <small>Time</small>
+                    </div>
+
+                    <div>
+                        <span>◈</span>
+                        <strong id="modalDifficulty">Easy</strong>
+                        <small>Difficulty</small>
+                    </div>
+
+                    <div>
+                        <span>🔥</span>
+                        <strong id="modalCalories">400</strong>
+                        <small>Calories</small>
+                    </div>
+
+                    <div>
+                        <span>💪</span>
+                        <strong id="modalProtein">20g</strong>
+                        <small>Protein</small>
+                    </div>
+
+                </div>
+
+
+                <div class="servings-control">
+
+                    <div>
+                        <strong>Servings</strong>
+                        <span>Adjust the ingredients automatically</span>
+                    </div>
+
+                    <div class="servings-buttons">
+
+                        <button id="minusServing" type="button">
+                            −
+                        </button>
+
+                        <strong id="servingNumber">
+                            2
+                        </strong>
+
+                        <button id="plusServing" type="button">
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-columns">
+
+                    <div class="ingredients-panel">
+
+                        <div class="panel-heading">
+                            <h3>Ingredients</h3>
+
+                            <button id="addShoppingBtn" type="button">
+                                🛒 Add all
+                            </button>
+                        </div>
+
+                        <ul id="ingredientList"></ul>
+
+                    </div>
+
+
+                    <div class="steps-panel">
+
+                        <h3>How to make it</h3>
+
+                        <ol id="stepList"></ol>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button id="shareBtn" class="secondary-btn" type="button">
+                        ↗ Share
+                    </button>
+
+                    <button id="copyBtn" class="secondary-btn" type="button">
+                        ⧉ Copy
+                    </button>
+
+                    <button id="modalShoppingBtn" class="primary-btn" type="button">
+                        🛒 Add to shopping list
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= SHOPPING MODAL ================= -->
+
+    <div class="modal-overlay hidden" id="shoppingModal">
+
+        <div class="shopping-modal">
+
+            <button
+                class="modal-close"
+                id="closeShoppingModal"
+                type="button"
+            >
+                ×
+            </button>
+
+            <div class="shopping-header">
+
+                <div>
+                    <span class="eyebrow">YOUR LIST</span>
+                    <h2>Shopping list</h2>
+                    <p id="shoppingSubtitle">
+                        Your ingredients in one place.
+                    </p>
+                </div>
+
+                <span class="shopping-big-icon">🛒</span>
+
+            </div>
+
+            <div class="shopping-list" id="shoppingList"></div>
+
+            <div class="shopping-empty hidden" id="shoppingEmpty">
+                <span>🛒</span>
+                <h3>Your list is empty</h3>
+                <p>Add ingredients from any recipe.</p>
+            </div>
+
+            <div class="shopping-footer">
+
+                <button
+                    id="clearShoppingBtn"
+                    class="danger-btn"
+                    type="button"
+                >
+                    Clear list
+                </button>
+
+                <button
+                    id="closeShoppingBottom"
+                    class="primary-btn"
+                    type="button"
+                >
+                    Done
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div class="toast-container" id="toastContainer"></div>
+
+
+    <!-- ================= SCROLL TOP ================= -->
+
+    <button
+        class="scroll-top hidden"
+        id="scrollTopBtn"
+        type="button"
+        aria-label="Scroll to top"
+    >
+        ↑
+    </button>
+
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <div>
+                <strong>✦ FlavorQuest</strong>
+                <p>Discover your next favorite meal.</p>
+            </div>
+
+            <span>
+                Built for people who love good food.
+            </span>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
